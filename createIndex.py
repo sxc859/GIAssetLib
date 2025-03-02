@@ -1,6 +1,7 @@
 import os
 import json
 import shutil
+import hashlib
 import requests
 import subprocess
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -38,25 +39,38 @@ str2bytes = lambda string: string.encode("utf-8")
 fixed = lambda data, size=2: data.ljust(size, b"\x00")
 unfix = lambda data: data.rstrip(b"\x00")
 
+def md5_check(fname):
+	hash_md5 = hashlib.md5()
+	with open(fname, "rb") as f:
+		for chunk in iter(lambda: f.read(4096), b""):
+			hash_md5.update(chunk)
+	return hash_md5.hexdigest()
+
 def downloadBlocks(_hash, outDir):
 	baseUrl = f"https://autopatchhk.yuanshen.com/client_app/download/pc_zip/{_hash}/ScatteredFiles"
 	pkgUrl = f"{baseUrl}/pkg_version"
 	# blkUrl = f"{baseUrl}/GenshinImpact_Data/StreamingAssets/AssetBundles/blocks"
+	# 20240301203033_RZSIny3hwJ5nq959
+	# GenshinImpact_Data/StreamingAssets/AssetBundles/blocks/00/00277271.blk
 
 	# fetch blk
 	blocks = []
 	totalSize = 0
 	sizes = {}
+	md5 = {}
 
 	with requests.get(pkgUrl, stream=True) as response:
 		response.raise_for_status()
 		for line in response.iter_lines(decode_unicode=True):
 			if len(line) != 0:
 				file = json.loads(line)
-				if file["remoteName"].endswith(".blk") and file["remoteName"].startswith("GenshinImpact_Data/StreamingAssets/AssetBundles/blocks"):
-					blocks.append(file["remoteName"])
+				fname = file["remoteName"]
+
+				if fname.endswith(".blk") and fname.startswith("GenshinImpact_Data/StreamingAssets/AssetBundles/blocks"):
+					blocks.append(fname)
 					totalSize += file["fileSize"]
-					sizes[file["remoteName"]] = file["fileSize"]
+					sizes[fname] = file["fileSize"]
+					md5[fname] = file["md5"]
 
 	print(f">>> Will download {len(blocks)} blocks | {round(totalSize / 1073741824, 2)}GB")
 	os.system("pause")
@@ -68,6 +82,11 @@ def downloadBlocks(_hash, outDir):
 		blkOutDir = os.path.join(outDir, blkFolder, blkName)
 
 		os.makedirs(os.path.dirname(blkOutDir), exist_ok=True)
+		text = f"{blkFolder}//{blkName} ({round(sizes[block] / 1048576, 2)}MB)"
+
+		if os.path.exists(blkOutDir):
+			if md5_check(blkOutDir) == md5[block]:
+				return f"SKIPPED -> {text}"
 
 		try:
 			with requests.get(blkUrl, stream=True) as response:
@@ -76,9 +95,9 @@ def downloadBlocks(_hash, outDir):
 					for chunk in response.iter_content(1024):
 						file.write(chunk)
 		except:
-			return f"FAILED -> {blkFolder}//{blkName} ({round(sizes[block] / 1048576, 2)}MB)"
+			return f"FAILED -> {text}"
 		
-		return f"{blkFolder}//{blkName} ({round(sizes[block] / 1048576, 2)}MB)"
+		return text
 
 	with ThreadPoolExecutor(max_workers=15) as executor:
 		futures = {executor.submit(download_block, block): block for block in blocks}
