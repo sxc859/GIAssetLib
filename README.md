@@ -10,7 +10,7 @@ Get any asset (texture, model, etc) from Genshin, at any version, without having
    
 ![image](https://github.com/user-attachments/assets/523f7775-b1b5-446e-a202-648fe31dddc7)
 
-6. Select an index file, to get one you can see the list of available files here, or make one yourself (see bellow section on making an index)
+6. Select an index file, to get one you can see the list of [available files here](https://github.com/Escartem/GIAssetLibIndexes/tree/master), or make one yourself (see bellow section on making an index)
 > [!TIP] 
 > The index file have the following naming scheme : "hk4e[game version].index", so for example `hk4e54.index` is for genshin at v5.4. Unless you want to compare assets between versions, you usually need the latest one.
 6. Wait for the program to load the file, and after you should have the list of all assets for that game version
@@ -30,7 +30,9 @@ Mihoyo servers provide a wonderful feature called "scattered download", allowing
 
 ## Make an index file yourself
 
-Before making an index file, first make sure the version you are aiming for is present in the file called `hashes.json`, if it's in here, you're good for the next step, otherwise read the following :
+### ⚠️ Please note the scattered files feature was added at 2.3, so you cannot build an index file earlier than 2.3
+
+Before making an index file, first make sure the version you are aiming for is present in the file called `hashes.json` (remember it cannot work before 2.3, the hashes from 1.0 to 2.3 are only here for archival purposes), if it's in here, you're good for the next step, otherwise read the following :
 - If the game version you need the hash of is the latest one, go to [hoyo-updates](https://hoyo-updates.vercel.app/), click on genshin and choose any package from the list
 
 ![image](https://github.com/user-attachments/assets/c6d6e464-6dad-43eb-a222-7fde93dc44d8)
