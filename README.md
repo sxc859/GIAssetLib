@@ -71,4 +71,4 @@ MAP_CLEANUP = True
 - **MAP_FILE** : if you set rebuild_map to false, place here the name of the asset map you made, it must be in the same folder. If you already have the game data and made the map yourself, DO NOT DELETE THE GAME DATA, the tool uses it afterwards again.
 - **MAP_CLEANUP** : same logic as blk_cleanup, deletes the map at the end
 
-Once everything is defined as you wish, run `python createMap.py` and wait for the tool to finish, if you asked it to download the game data itself, it will show you the download size and ask for confirmation before starting. Then at the end you will have your index file~
+Once everything is defined as you wish, run `python createIndex.py` and wait for the tool to finish, if you asked it to download the game data itself, it will show you the download size and ask for confirmation before starting. Then at the end you will have your index file~
