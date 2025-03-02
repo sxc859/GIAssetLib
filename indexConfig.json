@@ -1,0 +1,11 @@
+{
+	"VERSION": "4.6",
+	"DOWNLOAD_BLOCKS": true,
+	"BLOCKS_DIR": "H:\\Games\\GenshinImpact\\GenshinImpact_Data\\StreamingAssets\\AssetBundles\\blocks",
+	"BLK_CLEANUP": true,
+	"REBUILD_MAP": true,
+	"MAP_FILE": "gi54f.json",
+	"MAP_CLEANUP": true,
+	"EXPORT_META": false,
+	"GAME": "hk4e"
+}

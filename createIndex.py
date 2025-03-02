@@ -10,22 +10,26 @@ with open("hashes.json", "r") as f:
 	hashes = json.loads(f.read())
 	f.close()
 
+with open("indexConfig.json", "r") as f:
+	config = json.loads(f.read())
+	f.close()
+
 ###
 # warning: while these are parameters, i haven't really tested all combinations
 # i use it like this, only changing version, so it may break if you do a specific run
-VERSION = "4.7"
+VERSION = config["VERSION"]
 
-DOWNLOAD_BLOCKS = True # set false if game already installed
-BLOCKS_DIR = "H:\\Games\\GenshinImpact\\GenshinImpact_Data\\StreamingAssets\\AssetBundles\\blocks" # define if download_blocks is false
-BLK_CLEANUP = True
+DOWNLOAD_BLOCKS = config["DOWNLOAD_BLOCKS"] # set false if game already installed
+BLOCKS_DIR = config["BLOCKS_DIR"] # define if download_blocks is false
+BLK_CLEANUP = config["BLK_CLEANUP"]
 
-REBUILD_MAP = True # set false if doing manually
-MAP_FILE = "gi54f.json" # define if rebuild_map is false
-MAP_CLEANUP = True
+REBUILD_MAP = config["REBUILD_MAP"] # set false if doing manually
+MAP_FILE = config["MAP_FILE"] # define if rebuild_map is false
+MAP_CLEANUP = config["MAP_CLEANUP"]
 
 # don't change
-EXPORT_META = False
-GAME = "hk4e"
+EXPORT_META = config["EXPORT_META"]
+GAME = config["GAME"]
 HASH = hashes[VERSION]
 ###
 
