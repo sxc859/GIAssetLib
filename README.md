@@ -49,7 +49,7 @@ Before making an index file, first make sure the version you are aiming for is p
 
 ---
 
-Once you have your hash ready, open the file `createMap.py`, and look at the beginning :
+Once you have your hash ready, open the file `indexConfig.json`, and look at the values :
 
 ```py
 VERSION = "5.4"
