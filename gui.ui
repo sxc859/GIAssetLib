@@ -44,7 +44,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>441</width>
+      <width>371</width>
       <height>31</height>
      </rect>
     </property>
@@ -109,9 +109,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>492</x>
+      <x>402</x>
       <y>20</y>
-      <width>491</width>
+      <width>371</width>
       <height>31</height>
      </rect>
     </property>
@@ -143,6 +143,19 @@
     </property>
     <property name="text">
      <string>Idle</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="infosLabel">
+    <property name="geometry">
+     <rect>
+      <x>784</x>
+      <y>19</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>No index loaded</string>
     </property>
    </widget>
   </widget>

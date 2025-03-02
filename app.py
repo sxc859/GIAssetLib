@@ -134,6 +134,7 @@ class GIAssetLib(QMainWindow):
 			else:
 				self.updateLoadedStatus(True)
 				self.indexData = indexData
+				self.infosLabel.setText(f"Loaded v{self.indexData.version} | {len(self.indexData.assets)} assets")
 				self.updateAssetTable(self.indexData.assets)
 
 	def updateLoadedStatus(self, status):
