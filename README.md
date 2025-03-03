@@ -3,6 +3,7 @@ Get any asset (texture, model, etc) from Genshin, at any version, without having
 
 ## How to use
 
+0. You need .NET 8 installed on your pc, if you're unsure you can install it [here](https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch=x64&rid=win-x64&os=win10&apphost_version=8.0.13)
 1. Get the tool, either by cloning (`git clone https://github.com/Escartem/GIAssetLib`) or [downloading](https://github.com/Escartem/GIAssetLib/archive/refs/heads/master.zip)
 2. Install dependencies (`pip install -r requirements.txt`)
 3. Run it (`python app.py`)
