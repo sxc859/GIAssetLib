@@ -32,6 +32,7 @@ Mihoyo servers provide a wonderful feature called "scattered download", allowing
 ## Make an index file yourself
 
 ### ⚠️ Please note the scattered files feature was added at 2.3, so you cannot build an index file earlier than 2.3
+### :x: Also note, due to an incident that happened on mihoyo's servers some years ago, the folders for 3.2 and 3.4 are no longer on the server and available, therefore unless owning a copy of the game, it is no longer possible to make anything out of these versions.
 
 Before making an index file, first make sure the version you are aiming for is present in the file called `hashes.json` (remember it cannot work before 2.3, the hashes from 1.0 to 2.3 are only here for archival purposes), if it's in here, you're good for the next step, otherwise read the following :
 - If the game version you need the hash of is the latest one, go to [hoyo-updates](https://hoyo-updates.vercel.app/), click on genshin and choose any package from the list
