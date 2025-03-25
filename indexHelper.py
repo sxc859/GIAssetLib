@@ -58,8 +58,6 @@ class IndexHelper:
 		hashSize = val(1)
 		_hash = raw(hashSize)
 
-		self.hash = _hash
-
 		# types
 		typesRef = {}
 		nTypes = val(1)

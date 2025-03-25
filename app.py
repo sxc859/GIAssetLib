@@ -2,6 +2,7 @@ import os
 import sys
 import math
 import json
+import HoyoDL
 import tempfile
 import requests
 import subprocess
@@ -28,14 +29,13 @@ class ExtractThread(QThread):
 		downloadDir = self.data["downloadDir"].name
 		downloaded = 0
 
-		for index, url in enumerate(self.data["urls"]):
-			response = requests.get(url, stream=True)
-			filePath = os.path.join(downloadDir, os.path.basename(url))
+		for index, dl in enumerate(self.data["dls"]):
+			filePath = os.path.join(downloadDir, os.path.basename(dl.url))
 			os.makedirs(downloadDir, exist_ok=True)
 
 			with open(filePath, "wb") as file:
 
-				for data in response.iter_content(1024):
+				for data in dl.iter_content(1024):
 					file.write(data)
 					downloaded += len(data)
 
@@ -94,6 +94,9 @@ class GIAssetLib(QMainWindow):
 		super(GIAssetLib, self).__init__()
 		uic.loadUi("gui.ui", self)
 
+		self.hoyoClient = HoyoDL()
+		self.hoyoClient.setGame("hk4e")
+
 		with open("config.json", "r") as f:
 			self.config = json.loads(f.read())
 			f.close()
@@ -134,6 +137,7 @@ class GIAssetLib(QMainWindow):
 			else:
 				self.updateLoadedStatus(True)
 				self.indexData = indexData
+				self.hoyoClient.setVersion(self.indexData.version)
 				self.infosLabel.setText(f"Loaded v{self.indexData.version} | {len(self.indexData.assets)} assets")
 				self.updateAssetTable(self.indexData.assets)
 
@@ -222,12 +226,7 @@ class GIAssetLib(QMainWindow):
 
 		# if user agrees, let's go :D
 		if userConfirm == QMessageBox.Yes:
-			urlBase = self.config["scatterURL"]
-			urlBase = urlBase.replace("$0", self.indexData.hash)
-			urlFull = f"{urlBase}/{self.config['blkRef']}"
-
-			urls = [f'{urlFull}/{folders[e]}/{e}.blk' for e in blocks]
-
+			dls = [self.hoyoClient.downloadBlock(f"{folders[e]}/{e}") for e in blocks]
 			downloadDir = tempfile.TemporaryDirectory()
 
 			outputFolder = self.selectFolder()
@@ -237,7 +236,7 @@ class GIAssetLib(QMainWindow):
 				return
 
 			workerData = {
-				"urls": urls,
+				"dls": dls,
 				"downloadDir": downloadDir,
 				"totalSize": size,
 				"outputFolder": outputFolder,
