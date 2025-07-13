@@ -1,4 +1,3 @@
-PyQt5>=5.15.11
-PyQt5_sip>=12.15.0
-Requests>=2.32.3
-HoyoDL>=0.1.2
+PyQt5==5.15.9
+requests==2.31.0
+hoyodl==0.3.4
